@@ -1,0 +1,215 @@
+{
+  "brand_identity": {
+    "firm_name": "SAI Studio for architectural innovations",
+    "short_name": "SAI Studio",
+    "founder": {
+      "name": "AR. KEDAR VILASRAO MAHAMUNI",
+      "degree": "B.Arch.",
+      "coa_registration": "CA/2006/39225"
+    },
+    "philosophy": "Architecture Crafted for the Human Experience",
+    "contact": {
+      "locations": ["Solapur", "Pune", "Chh. Sambhajinagar"],
+      "phone": "+91 9699940176",
+      "email": "contact@saistudio.arch",
+      "state_focus": "Maharashtra, India"
+    },
+    "principles": [
+      {
+        "id": "01",
+        "title": "Contextual Innovation",
+        "tagline": "Rooted in Soil & Sun",
+        "description": "Rooting design in local culture, climate, and geography combined with high-precision modern structural engineering."
+      },
+      {
+        "id": "02",
+        "title": "Functional Craftsmanship",
+        "tagline": "Precision in Every Metre",
+        "description": "Spatial fluidity, human movement study, and meticulous execution of authentic architectural materials."
+      },
+      {
+        "id": "03",
+        "title": "Purposeful Sustainability",
+        "tagline": "Passive Comfort & Resilience",
+        "description": "Passive cooling strategies, natural daylighting orientation, and durable local stones and brickwork across Maharashtra."
+      }
+    ]
+  },
+  "aesthetic_archetype": {
+    "style_name": "Architectural Obsidian & Warm Stone (Dark Brutalist Editorial)",
+    "description": "A high-contrast, structural dark theme borrowing precision from architecture studios and Swiss minimalist posters. High-resolution architectural photography set against rich dark obsidian slate canvas with warm sandstone accents.",
+    "theme": "dark",
+    "color_palette": {
+      "background_primary": "#0A0B0E",
+      "background_secondary": "#121419",
+      "surface_card": "#181B22",
+      "border_subtle": "rgba(255, 255, 255, 0.1)",
+      "border_highlight": "rgba(200, 169, 126, 0.4)",
+      "text_heading": "#F4F4F6",
+      "text_body": "#9EA3B0",
+      "accent_primary": "#C8A97E",
+      "accent_earth": "#B85B35",
+      "accent_monochrome": "#FFFFFF"
+    }
+  },
+  "typography": {
+    "font_family_heading": "Cormorant Garamond, Serif",
+    "font_family_display": "Outfit, sans-serif",
+    "font_family_body": "Plus Jakarta Sans, sans-serif",
+    "font_family_mono": "JetBrains Mono, monospace",
+    "h1_hero": "text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight leading-[1.08]",
+    "h2_section": "text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-white",
+    "h3_card": "text-xl sm:text-2xl font-medium tracking-normal text-white",
+    "overline_label": "text-xs font-mono uppercase tracking-[0.25em] text-[#C8A97E]"
+  },
+  "image_urls": {
+    "hero_bg": "https://images.unsplash.com/photo-1546414701-81cc6963c67f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmFsJTIwY29uY3JldGUlMjBleHRlcmlvciUyMGJydXRhbGlzdCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc5MTQ4NzU4Mnww&ixlib=rb-4.1.0&q=85",
+    "founder_portrait_studio": "https://images.unsplash.com/photo-1598367815092-a2c0cbc1ea3d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwzfHxhcmNoaXRlY3R1cmFsJTIwbW9kZWwlMjBzdHVkaW8lMjBza2V0Y2glMjBibHVlcHJpbnQlMjB3b3JrZXIlMjBhcmNoaXRlY3R8ZW58MHx8fHwxNzkxNDg3NTgyfDA&ixlib=rb-4.1.0&q=85",
+    "studio_drafting": "https://images.unsplash.com/photo-1599420186985-5c3d1a038e84?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwyfHxhcmNoaXRlY3R1cmFsJTIwbW9kZWwlMjBzdHVkaW8lMjBza2V0Y2glMjBibHVlcHJpbnQlMjB3b3JrZXIlMjBhcmNoaXRlY3R8ZW58MHx8fHwxNzkxNDg3NTgyfDA&ixlib=rb-4.1.0&q=85",
+    "studio_detail": "https://images.unsplash.com/photo-1581674662583-5e89b374fae6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3R1cmFsJTIwbW9kZWwlMjBzdHVkaW8lMjBza2V0Y2glMjBibHVlcHJpbnQlMjB3b3JrZXIlMjBhcmNoaXRlY3R8ZW58MHx8fHwxNzkxNDg3NTgyfDA&ixlib=rb-4.1.0&q=85",
+    "portfolio": [
+      {
+        "id": "proj-1",
+        "title": "The Sahyadri Courtyard Pavilion",
+        "category": "Residential Architecture",
+        "location": "Pune, MH",
+        "year": "2025",
+        "area": "6,500 sq.ft",
+        "image_url": "https://images.unsplash.com/photo-1647341159891-302156d1bbdf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBsdXh1cnklMjBpbnRlcmlvciUyMGFyY2hpdGVjdHVyZSUyMGNvdXJ0eWFyZCUyMHN0b25lJTIwd29vZHxlbnwwfHx8fDE3OTE0ODc1ODJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "A climate-responsive bungalow utilizing basalt stone masonry and deep shaded verandas to naturally cool internal spaces during Maharashtrian summers."
+      },
+      {
+        "id": "proj-2",
+        "title": "Solapur Textural Concrete Villa",
+        "category": "Institutional & Housing",
+        "location": "Solapur, MH",
+        "year": "2024",
+        "area": "12,000 sq.ft",
+        "image_url": "https://images.unsplash.com/photo-1614595737476-42487331b8a1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmFsJTIwY29uY3JldGUlMjBleHRlcmlvciUyMGJydXRhbGlzdCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc5MTQ4NzU4Mnww&ixlib=rb-4.1.0&q=85",
+        "description": "Raw board-formed concrete shuttering integrated with terracotta jali screens for ventilation and glare control."
+      },
+      {
+        "id": "proj-3",
+        "title": "Sambhajinagar Heritage Cultural Hub",
+        "category": "Public & Commercial",
+        "location": "Chh. Sambhajinagar, MH",
+        "year": "2025",
+        "area": "24,000 sq.ft",
+        "image_url": "https://images.unsplash.com/photo-1614595737683-1740e41bfaac?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmFsJTIwY29uY3JldGUlMjBleHRlcmlvciUyMGJydXRhbGlzdCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc5MTQ4NzU4Mnww&ixlib=rb-4.1.0&q=85",
+        "description": "Modern urban cultural center celebrating Deccan architectural heritage through contemporary geometric skylights and open-air plazas."
+      },
+      {
+        "id": "proj-4",
+        "title": "Veranda Stone Patio Residence",
+        "category": "Residential Architecture",
+        "location": "Pune, MH",
+        "year": "2023",
+        "area": "4,800 sq.ft",
+        "image_url": "https://images.unsplash.com/photo-1786204685672-e344095e5b49?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxtb2Rlcm4lMjBsdXh1cnklMjBpbnRlcmlvciUyMGFyY2hpdGVjdHVyZSUyMGNvdXJ0eWFyZCUyMHN0b25lJTIwd29vZHxlbnwwfHx8fDE3OTE0ODc1ODJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "Seamless indoors-to-outdoors living space using locally quarried slate floors and teak louvers."
+      },
+      {
+        "id": "proj-5",
+        "title": "Deccan Atrium Business Center",
+        "category": "Public & Commercial",
+        "location": "Solapur, MH",
+        "year": "2024",
+        "area": "18,500 sq.ft",
+        "image_url": "https://images.unsplash.com/photo-1746173098001-2ae330a6a763?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHw0fHxtb2Rlcm4lMjBsdXh1cnklMjBpbnRlcmlvciUyMGFyY2hpdGVjdHVyZSUyMGNvdXJ0eWFyZCUyMHN0b25lJTIwd29vZHxlbnwwfHx8fDE3OTE0ODc1ODJ8MA&ixlib=rb-4.1.0&q=85",
+        "description": "High-density workplace featuring central green courtyard chimney effect for low-energy air exchange."
+      }
+    ]
+  },
+  "sections_breakdown": [
+    {
+      "section_id": "navigation",
+      "component_name": "Navbar",
+      "features": [
+        "Glassmorphism dark nav bar (backdrop-blur-xl bg-black/70 border-b border-white/10)",
+        "Minimalist SVG logo mark for SAI Studio (geometric interlocking S-A-I architectural lines)",
+        "Navigation links: About, Principles, Portfolio, Contact",
+        "COA Badge tag ('CA/2006/39225')",
+        "Primary CTA button: 'Inquire Studio' with hover micro-interaction",
+        "Mobile overlay menu with smooth spring animation"
+      ]
+    },
+    {
+      "section_id": "hero",
+      "component_name": "KineticHero",
+      "features": [
+        "Kinetic hero header with masked line-by-line text reveal animation (Framer Motion stagger)",
+        "Subtle parallax background effect on scroll using hero architecture photo with dynamic overlay gradient",
+        "Signature founder tagline display: 'Architecture Crafted for the Human Experience'",
+        "Grid overlay lines (1px architectural drafting grid accents)",
+        "Quick statistics bar: '20+ Years Excellence', '3 Regional Hubs', 'COA Registered'"
+      ]
+    },
+    {
+      "section_id": "marquee",
+      "component_name": "EditorialMarquee",
+      "features": [
+        "Slow, luxurious continuous drift marquee using react-fast-marquee or framer-motion",
+        "Editorial items: 'CONTEXTUAL INNOVATION • FUNCTIONAL CRAFTSMANSHIP • PURPOSEFUL SUSTAINABILITY • SOLAPUR • PUNE • CHH. SAMBHAJINAGAR • MAHARASHTRA'",
+        "Low contrast muted gold on dark obsidian theme"
+      ]
+    },
+    {
+      "section_id": "founder",
+      "component_name": "AboutFounder",
+      "features": [
+        "Editorial grid layout: High-impact portrait draft photo on left with architectural frame mask",
+        "Founder biography and credentials block for AR. KEDAR VILASRAO MAHAMUNI (B.Arch, COA Reg: CA/2006/39225)",
+        "Highlighted philosophy breakdown and structural design vision across Maharashtra",
+        "Interactive tab/stat highlights: Expertise, Regional Impact, Registration details"
+      ]
+    },
+    {
+      "section_id": "principles",
+      "component_name": "StudioPrinciples",
+      "features": [
+        "Interactive 3-column architectural card grid (Mode A Bento offset design)",
+        "Principle 01: Contextual Innovation (local culture, climate, geography, structural engineering)",
+        "Principle 02: Functional Craftsmanship (spatial fluidity, human movement, material execution)",
+        "Principle 03: Purposeful Sustainability (passive cooling, natural daylighting, local stone/brick)",
+        "Interactive hover reveal effect with expanding details and architectural blueprint icons"
+      ]
+    },
+    {
+      "section_id": "portfolio",
+      "component_name": "PortfolioGallery",
+      "features": [
+        "Filterable architectural showcase (All, Residential, Commercial, Cultural)",
+        "Clipped architectural image frames with subtle hover zoom + light sweep spotlight effect",
+        "Detail drawer / modal view for each project showing specifications (Area, Location, Year, Philosophy)",
+        "High quality photography cards with custom project labels and year tags"
+      ]
+    },
+    {
+      "section_id": "contact",
+      "component_name": "ContactSection",
+      "features": [
+        "Multi-city presence highlights: SOLAPUR | PUNE | CHH. SAMBHAJINAGAR",
+        "Direct call action (+91 9699940176) with copy-to-clipboard micro-interaction",
+        "Interactive inquiry form (Name, Project Location, Scope, Message) with Sonner toast feedback",
+        "Architectural studio footer with copyright, COA details, and smooth scroll-to-top button"
+      ]
+    }
+  ],
+  "instructions_to_main_agent": {
+    "key_directives": [
+      "Follow dark architectural aesthetic strictly using #0A0B0E background and #C8A97E gold-stone accent.",
+      "Use Lenis for smooth momentum scrolling across the single-page layout.",
+      "Use Framer Motion for line-by-line hero reveal, scroll triggers, and tab/modal transitions.",
+      "Ensure all interactive elements have data-testid attributes (e.g., data-testid='nav-contact-btn', data-testid='portfolio-filter-all', data-testid='contact-form-submit').",
+      "Ensure proper font imports in index.html or CSS (@import url for Cormorant Garamond, Outfit, Plus Jakarta Sans, JetBrains Mono).",
+      "Never use generic centered layouts or Inter font for main headings.",
+      "Use real image URLs provided in design_guidelines.json, never placeholders."
+    ]
+  },
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": {
+    "testing_attributes": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case.",
+    "spacing": "Use generous spacing (p-8, p-12, py-20, py-32) to ensure luxurious architectural breathing room.",
+    "motion": "Respect prefers-reduced-motion and ensure animations run at 60fps.",
+    "toast": "Use sonner for form submit feedback and copy phone number action."
+  }
+}
