@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { Link } from "next/link";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   LogOut, Trash2, MailOpen, Mail, RefreshCw, ArrowLeft, Plus, Pencil, Upload, X,
@@ -12,19 +12,59 @@ import LogoMark from "../components/Logo";
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const client = axios.create({ baseURL: API, withCredentials: true });
 
-function formatApiErrorDetail(detail) {
+export interface AdminUser {
+  email: string;
+  [key: string]: unknown;
+}
+
+export interface Inquiry {
+  id: string;
+  name: string;
+  contact: string;
+  location?: string;
+  scope?: string;
+  message: string;
+  status?: string;
+  created_at?: string;
+}
+
+export interface AdminProject {
+  id: string;
+  title: string;
+  category: string;
+  location?: string;
+  year?: string;
+  area?: string;
+  description?: string;
+  image?: string;
+  storage_path?: string;
+}
+
+export type ProjectForm = {
+  title: string;
+  category: string;
+  location: string;
+  year: string;
+  area: string;
+  description: string;
+};
+
+function formatApiErrorDetail(detail: unknown): string {
   if (detail == null) return "Something went wrong. Please try again.";
   if (typeof detail === "string") return detail;
   if (Array.isArray(detail))
     return detail
-      .map((e) => (e && typeof e.msg === "string" ? e.msg : JSON.stringify(e)))
+      .map((e) => (e && typeof e === "object" && "msg" in e && typeof (e as { msg: unknown }).msg === "string" ? (e as { msg: string }).msg : JSON.stringify(e)))
       .filter(Boolean)
       .join(" ");
-  if (detail && typeof detail.msg === "string") return detail.msg;
+  if (typeof detail === "object" && "msg" in detail && typeof (detail as { msg: unknown }).msg === "string") {
+    return (detail as { msg: string }).msg;
+  }
   return String(detail);
 }
 
-const fmtDate = (iso) => {
+const fmtDate = (iso?: string | null) => {
+  if (!iso) return "—";
   try {
     return new Date(iso).toLocaleString("en-IN", {
       day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
@@ -34,12 +74,12 @@ const fmtDate = (iso) => {
   }
 };
 
-const imgFor = (p) => (p.storage_path ? `${API}/files/${p.storage_path}` : p.image);
+const imgFor = (p: { storage_path?: string; image?: string }) => (p.storage_path ? `${API}/files/${p.storage_path}` : p.image);
 
 const CATEGORIES = ["Residential", "Commercial", "Cultural", "Healthcare", "Hospitality", "Educational", "IT Sectors", "Land Development"];
-const EMPTY_PROJECT = { title: "", category: "Residential", location: "", year: "", area: "", description: "" };
+const EMPTY_PROJECT: ProjectForm = { title: "", category: "Residential", location: "", year: "", area: "", description: "" };
 
-const DEFAULT_IMAGES = {
+const DEFAULT_IMAGES: Record<string, string> = {
   hero: "https://images.unsplash.com/photo-1546414701-81cc6963c67f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcmNoaXRlY3R1cmFsJTIwY29uY3JldGUlMjBleHRlcmlvciUyMGJydXRhbGlzdCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc5MTQ4NzU4Mnww&ixlib=rb-4.1.0&q=85",
   founder: "https://images.unsplash.com/photo-1598367815092-a2c0cbc1ea3d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwzfHxhcmNoaXRlY3R1cmFsJTIwbW9kZWwlMjBzdHVkaW8lMjBza2V0Y2glMjBibHVlcHJpbnQlMjB3b3JrZXIlMjBhcmNoaXRlY3R8ZW58MHx8fHwxNzkxNDg3NTgyfDA&ixlib=rb-4.1.0&q=85",
   studio: "https://images.unsplash.com/photo-1599420186985-5c3d1a038e84?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODh8MHwxfHNlYXJjaHwyfHxhcmNoaXRlY3R1cmFsJTIwbW9kZWwlMjBzdHVkaW8lMjBza2V0Y2glMjBibHVlcHJpbnQlMjB3b3JrZXIlMjBhcmNoaXRlY3R8ZW58MHx8fHwxNzkxNDg3NTgyfDA&ixlib=rb-4.1.0&q=85",
@@ -52,30 +92,30 @@ const IMAGE_SLOTS = [
 ];
 
 const AdminPage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<AdminUser | false | null>(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [tab, setTab] = useState("inquiries");
 
-  const [inquiries, setInquiries] = useState([]);
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<AdminProject[]>([]);
   const [projectsLoading, setProjectsLoading] = useState(false);
-  const [editing, setEditing] = useState(null);
-  const [form, setForm] = useState(EMPTY_PROJECT);
-  const [file, setFile] = useState(null);
+  const [editing, setEditing] = useState<AdminProject | Partial<AdminProject> | null>(null);
+  const [form, setForm] = useState<ProjectForm>(EMPTY_PROJECT);
+  const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
   const [saving, setSaving] = useState(false);
-  const dragId = useRef(null);
-  const projectsRef = useRef([]);
+  const dragId = useRef<string | null>(null);
+  const projectsRef = useRef<AdminProject[]>([]);
 
   const [pwForm, setPwForm] = useState({ current: "", next: "", confirm: "" });
   const [pwSaving, setPwSaving] = useState(false);
 
-  const [siteImgs, setSiteImgs] = useState({});
-  const [slotFiles, setSlotFiles] = useState({});
+  const [siteImgs, setSiteImgs] = useState<Record<string, string>>({});
+  const [slotFiles, setSlotFiles] = useState<Record<string, { file: File; preview: string } | null>>({});
   const [slotSaving, setSlotSaving] = useState("");
 
   useEffect(() => {
@@ -87,8 +127,8 @@ const AdminPage = () => {
     try {
       const { data } = await client.get("/inquiries");
       setInquiries(data);
-    } catch (e) {
-      if (e.response?.status === 401) setUser(false);
+    } catch (e: unknown) {
+      if (axios.isAxiosError(e) && e.response?.status === 401) setUser(false);
       else toast.error("Could not load inquiries");
     } finally {
       setLoading(false);
@@ -110,7 +150,7 @@ const AdminPage = () => {
   const loadSettings = useCallback(async () => {
     try {
       const { data } = await client.get("/settings");
-      const map = {};
+      const map: Record<string, string> = {};
       for (const s of ["hero", "founder", "studio"]) {
         if (data?.[`${s}_image_path`]) map[s] = `${API}/files/${data[`${s}_image_path`]}`;
       }
@@ -130,7 +170,7 @@ const AdminPage = () => {
       .catch(() => setUser(false));
   }, [loadInquiries, loadProjects, loadSettings]);
 
-  const login = async (e) => {
+  const login = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     try {
@@ -140,8 +180,12 @@ const AdminPage = () => {
       loadProjects();
       loadSettings();
       toast.success("Welcome back");
-    } catch (err) {
-      setError(formatApiErrorDetail(err.response?.data?.detail) || err.message);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        setError(formatApiErrorDetail(err.response?.data?.detail) || err.message);
+      } else {
+        setError("Login failed");
+      }
     }
   };
 
@@ -150,7 +194,7 @@ const AdminPage = () => {
     setUser(false);
   };
 
-  const toggleStatus = async (inq) => {
+  const toggleStatus = async (inq: Inquiry) => {
     const next = (inq.status || "new") === "new" ? "read" : "new";
     try {
       await client.patch(`/inquiries/${inq.id}`, { status: next });
@@ -160,7 +204,7 @@ const AdminPage = () => {
     }
   };
 
-  const removeInquiry = async (inq) => {
+  const removeInquiry = async (inq: Inquiry) => {
     if (!window.confirm(`Delete inquiry from ${inq.name}?`)) return;
     try {
       await client.delete(`/inquiries/${inq.id}`);
@@ -178,7 +222,7 @@ const AdminPage = () => {
     setPreview("");
   };
 
-  const startEdit = (p) => {
+  const startEdit = (p: AdminProject) => {
     setEditing(p);
     setForm({
       title: p.title, category: p.category, location: p.location || "",
@@ -188,7 +232,7 @@ const AdminPage = () => {
     setPreview(imgFor(p) || "");
   };
 
-  const pickFile = (e) => {
+  const pickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (!f) return;
     if (f.size > 8 * 1024 * 1024) {
@@ -199,7 +243,7 @@ const AdminPage = () => {
     setPreview(URL.createObjectURL(f));
   };
 
-  const saveProject = async (e) => {
+  const saveProject = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim()) {
       toast.error("Project title is required");
@@ -224,14 +268,18 @@ const AdminPage = () => {
       setFile(null);
       setPreview("");
       loadProjects();
-    } catch (err) {
-      toast.error(formatApiErrorDetail(err.response?.data?.detail));
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        toast.error(formatApiErrorDetail(err.response?.data?.detail));
+      } else {
+        toast.error("Could not save project");
+      }
     } finally {
       setSaving(false);
     }
   };
 
-  const removeProject = async (p) => {
+  const removeProject = async (p: AdminProject) => {
     if (!window.confirm(`Delete "${p.title}" from the portfolio?`)) return;
     try {
       await client.delete(`/projects/${p.id}`);
@@ -242,11 +290,11 @@ const AdminPage = () => {
     }
   };
 
-  const onDragStartCard = (id) => () => {
+  const onDragStartCard = (id: string) => () => {
     dragId.current = id;
   };
 
-  const onDragOverCard = (id) => (e) => {
+  const onDragOverCard = (id: string) => (e: React.DragEvent) => {
     e.preventDefault();
     if (!dragId.current || dragId.current === id) return;
     setProjects((prev) => {
@@ -272,7 +320,7 @@ const AdminPage = () => {
     }
   };
 
-  const pickSlotFile = (slot) => (e) => {
+  const pickSlotFile = (slot: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
     if (!f) return;
     if (f.size > 8 * 1024 * 1024) {
@@ -282,7 +330,7 @@ const AdminPage = () => {
     setSlotFiles((prev) => ({ ...prev, [slot]: { file: f, preview: URL.createObjectURL(f) } }));
   };
 
-  const saveSlot = async (slot) => {
+  const saveSlot = async (slot: string) => {
     const pending = slotFiles[slot];
     if (!pending) return;
     setSlotSaving(slot);
@@ -293,14 +341,18 @@ const AdminPage = () => {
       setSiteImgs((prev) => ({ ...prev, [slot]: `${API}/files/${data[`${slot}_image_path`]}` }));
       setSlotFiles((prev) => ({ ...prev, [slot]: null }));
       toast.success("Image updated — it is live on the site");
-    } catch (err) {
-      toast.error(formatApiErrorDetail(err.response?.data?.detail));
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        toast.error(formatApiErrorDetail(err.response?.data?.detail));
+      } else {
+        toast.error("Could not save image");
+      }
     } finally {
       setSlotSaving("");
     }
   };
 
-  const resetSlot = async (slot) => {
+  const resetSlot = async (slot: string) => {
     if (!window.confirm("Remove your photo and return to the default image?")) return;
     setSlotSaving(slot);
     try {
@@ -318,7 +370,7 @@ const AdminPage = () => {
     }
   };
 
-  const changePassword = async (e) => {
+  const changePassword = async (e: React.FormEvent) => {
     e.preventDefault();
     if (pwForm.next.length < 8) {
       toast.error("New password must be at least 8 characters");
@@ -336,8 +388,12 @@ const AdminPage = () => {
       });
       toast.success("Password updated — use it on your next sign in");
       setPwForm({ current: "", next: "", confirm: "" });
-    } catch (err) {
-      toast.error(formatApiErrorDetail(err.response?.data?.detail));
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        toast.error(formatApiErrorDetail(err.response?.data?.detail));
+      } else {
+        toast.error("Could not update password");
+      }
     } finally {
       setPwSaving(false);
     }
@@ -411,7 +467,7 @@ const AdminPage = () => {
             </button>
           </form>
           <Link
-            to="/"
+            href="/"
             className="flex items-center gap-2 ff-mono text-[10px] uppercase tracking-[0.2em] text-[#9EA3B0] hover:text-[#C8A97E] transition-colors mt-8"
             data-testid="admin-back-home-link"
           >
@@ -441,7 +497,7 @@ const AdminPage = () => {
           </div>
           <div className="flex items-center gap-4">
             <Link
-              to="/"
+              href="/"
               className="ff-mono text-[10px] uppercase tracking-[0.18em] text-[#9EA3B0] hover:text-[#C8A97E] transition-colors"
               data-testid="admin-view-site-link"
             >

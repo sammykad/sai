@@ -30,7 +30,7 @@ const PRINCIPLES = [
   },
 ];
 
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const StudioPrinciples = () => (
   <section

@@ -18,7 +18,7 @@ const CREDENTIALS = [
   { icon: MapPin, label: "Practice", value: "Solapur · Pune · Chh. Sambhajinagar" },
 ];
 
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const AboutFounder = () => {
   const [founderImg, setFounderImg] = useState(PORTRAIT);
@@ -35,7 +35,7 @@ const AboutFounder = () => {
           setStudioImg(`${API}/files/${data.studio_image_path}`);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   return (

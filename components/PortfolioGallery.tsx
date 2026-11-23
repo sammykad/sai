@@ -7,7 +7,19 @@ import { X, MapPin, Calendar, Maximize, Tag } from "lucide-react";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-const FALLBACK_PROJECTS = [
+export interface ProjectItem {
+  id: string;
+  title: string;
+  category: string;
+  location?: string;
+  year?: string;
+  area?: string;
+  image?: string;
+  storage_path?: string;
+  description?: string;
+}
+
+const FALLBACK_PROJECTS: ProjectItem[] = [
   {
     id: "proj-1",
     title: "The Sahyadri Courtyard Pavilion",
@@ -71,14 +83,14 @@ const FALLBACK_PROJECTS = [
 ];
 
 const FILTERS = ["All", "Residential", "Commercial", "Cultural", "Healthcare", "Hospitality", "Educational", "IT Sectors", "Land Development"];
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1] as const;
 
-const imgFor = (p) => (p.storage_path ? `${API}/files/${p.storage_path}` : p.image);
+const imgFor = (p: ProjectItem) => (p.storage_path ? `${API}/files/${p.storage_path}` : p.image);
 
 const PortfolioGallery = () => {
   const [filter, setFilter] = useState("All");
-  const [active, setActive] = useState(null);
-  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
+  const [active, setActive] = useState<ProjectItem | null>(null);
+  const [projects, setProjects] = useState<ProjectItem[]>(FALLBACK_PROJECTS);
 
   useEffect(() => {
     axios
@@ -86,7 +98,7 @@ const PortfolioGallery = () => {
       .then(({ data }) => {
         if (Array.isArray(data) && data.length) setProjects(data);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const visible =
@@ -132,11 +144,10 @@ const PortfolioGallery = () => {
                 key={f}
                 onClick={() => setFilter(f)}
                 data-testid={`portfolio-filter-${f.toLowerCase()}`}
-                className={`ff-mono text-[10px] uppercase tracking-[0.2em] px-4 py-2 border transition-all duration-300 ${
-                  filter === f
+                className={`ff-mono text-[10px] uppercase tracking-[0.2em] px-4 py-2 border transition-all duration-300 ${filter === f
                     ? "bg-[#C8A97E] text-[#0A0B0E] border-[#C8A97E]"
                     : "text-[#9EA3B0] border-white/15 hover:border-[#C8A97E]/50 hover:text-[#C8A97E]"
-                }`}
+                  }`}
               >
                 {f}
               </button>

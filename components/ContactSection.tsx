@@ -12,15 +12,24 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const PHONE_DISPLAY = "+91 96999 40176";
 const PHONE_RAW = "+919699940176";
 const CITIES = ["Solapur", "Pune", "Chh. Sambhajinagar"];
-const ease = [0.22, 1, 0.36, 1];
+const ease = [0.22, 1, 0.36, 1] as const;
 
-const EMPTY = { name: "", contact: "", location: "", scope: "", message: "" };
+interface ContactForm {
+  name: string;
+  contact: string;
+  location: string;
+  scope: string;
+  message: string;
+}
+
+const EMPTY: ContactForm = { name: "", contact: "", location: "", scope: "", message: "" };
 
 const ContactSection = () => {
-  const [form, setForm] = useState(EMPTY);
+  const [form, setForm] = useState<ContactForm>(EMPTY);
   const [sending, setSending] = useState(false);
 
-  const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  const set = (k: keyof ContactForm) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((prev) => ({ ...prev, [k]: e.target.value }));
 
   const copyPhone = async () => {
     try {
@@ -31,7 +40,7 @@ const ContactSection = () => {
     }
   };
 
-  const submit = async (e) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name.trim() || !form.contact.trim() || !form.message.trim()) {
       toast.error("Please fill in your name, contact and a short message");

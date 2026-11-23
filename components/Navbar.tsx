@@ -12,7 +12,7 @@ const LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-const scrollTo = (href) => {
+const scrollTo = (href: string) => {
   if (window.__lenis) {
     window.__lenis.scrollTo(href, { offset: -72, duration: 1.4 });
   } else {
@@ -30,7 +30,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const go = (href) => {
+  const go = (href: string) => {
     setOpen(false);
     scrollTo(href);
   };
